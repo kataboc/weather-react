@@ -45,7 +45,10 @@ export default function Today() {
               </div>
             </p>
           </div>
-          <a href="#" id="back-to-you">
+          <a
+            href="https://app.netlify.com/sites/serene-bell-0f095b"
+            id="back-to-you"
+          >
             Back to your current position
           </a>
         </div>

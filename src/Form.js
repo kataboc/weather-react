@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Form() {
-  let [city, setCity] = useState("Your current position");
   function handleSubmit(event) {
     event.preventDefault();
   }
   function findCity(event) {
-    setCity(event.target.value);
+    console.log(event.target.value);
   }
   return (
     <form className="form-row" onSubmit={handleSubmit}>
