@@ -1,38 +1,62 @@
-.App {
+body {
+  background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+form {
+  margin-top: 20px;
+}
+.btn:focus {
+  outilne: none;
+  box-shadow: none;
+}
+.col {
+  padding: 5;
+  margin: 0;
+}
+.card-today {
+  text-align: center;
+  font-size: 40px;
+}
+.card-title {
+  font-family: "Signika", sans-serif;
+  font-size: 45px;
+  font-weight: bold;
+}
+#location {
+  font-size: 20px;
+}
+.card-today-icon {
+  font-size: 200px;
+  color: orange;
+}
+#weatherDescription {
+  font-size: 16px;
+}
+#todayDate {
+  font-size: 30px;
+}
+.temperature-today {
+  font-weight: 500;
+}
+#back-to-you {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+}
+.card-f {
+  margin: 50px 0;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card-icon {
+  font-size: 60px;
+  color: grey;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.temperature {
+  font-size: 25px;
+  font-weight: 500;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h6 {
+  font-family: "Sniglet", cursive;
+  font-size: 12px;
+  font-weight: 100;
+  color: grey;
 }
