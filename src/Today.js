@@ -8,7 +8,6 @@ export default function Today() {
       <div className="col-12">
         <div className="card-today">
           <div className="card-body">
-            <h2 class="card-title">Your current position</h2>
             <h5 className="card-today-icon" id="todayIcon">
               <FontAwesomeIcon icon={faSun} />
             </h5>

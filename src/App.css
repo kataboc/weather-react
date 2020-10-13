@@ -8,6 +8,12 @@ form {
   outilne: none;
   box-shadow: none;
 }
+.position {
+  text-align: center;
+  font-family: "Signika", sans-serif;
+  font-size: 45px;
+  font-weight: bold;
+}
 .col {
   padding: 5;
   margin: 0;
