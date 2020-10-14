@@ -1,6 +1,5 @@
 import React from "react";
 import Form from "./Form";
-import Today from "./Today";
 import Forecast from "./Forecast";
 
 export default function Body() {
@@ -8,7 +7,6 @@ export default function Body() {
     <div className="body">
       <div className="container">
         <Form />
-        <Today />
       </div>
       <Forecast />
     </div>

@@ -2,12 +2,13 @@ import React from "react";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Today() {
+export default function Today(props) {
   return (
     <div className="row">
       <div className="col-12">
         <div className="card-today">
           <div className="card-body">
+            <h2 class="card-title">{props.cityName}</h2>
             <h5 className="card-today-icon" id="todayIcon">
               <FontAwesomeIcon icon={faSun} />
             </h5>
