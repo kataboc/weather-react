@@ -5,22 +5,23 @@ import Today from "./Today";
 export default function Form() {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
   const [ready, setReady] = useState(false);
+  let [search, setSearch] = useState(null);
   let [city, setCity] = useState(null);
   function handleSubmit(event) {
     event.preventDefault();
+    setCity(search);
   }
   function findCity(event) {
-    setCity(event.target.value);
-    let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-
-    axios.get(apiUrlCity).then(handleCityResponse());
+    setSearch(event.target.value);
+    let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${event.target.value}&units=metric&appid=${apiKey}`;
+    console.log(apiUrlCity);
+    axios.get(apiUrlCity).then(handleCityResponse);
   }
-
   function myPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     const apiUrlCoord = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-    axios.get(apiUrlCoord).then(handleCoordResponse());
+    axios.get(apiUrlCoord).then(handleCoordResponse);
   }
   function handleCoordResponse(response) {
     console.log(response.data);
