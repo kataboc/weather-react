@@ -7,6 +7,11 @@ export default function Form() {
   const [ready, setReady] = useState(false);
   let [search, setSearch] = useState(null);
   let [city, setCity] = useState(null);
+  let [temperature, setTemperature] = useState("10");
+  let [humidity, setHumidity] = useState("20");
+  let [wind, setWind] = useState("5");
+  let [description, setDescription] = useState("sunny");
+  let [place, setPlace] = useState("Your current position");
   function handleSubmit(event) {
     event.preventDefault();
     setCity(search);
@@ -25,10 +30,19 @@ export default function Form() {
   }
   function handleCoordResponse(response) {
     console.log(response.data);
+    setTemperature(Math.round(response.data.main.temp));
+    setHumidity(response.data.main.humidity);
+    setWind(response.data.wind.speed);
+    setDescription(response.data.weather[0].description);
+    setPlace(response.data.name);
     setReady(true);
   }
   function handleCityResponse(response) {
     console.log(response.data);
+    setTemperature(Math.round(response.data.main.temp));
+    setHumidity(response.data.main.humidity);
+    setWind(response.data.wind.speed);
+    setDescription(response.data.weather[0].description);
     setReady(true);
   }
   if (ready) {
@@ -57,11 +71,17 @@ export default function Form() {
             </div>
           </div>
         </form>
-        <Today cityName={city} />
+        <Today
+          name={place}
+          temp={temperature}
+          humid={humidity}
+          wind={wind}
+          desc={description}
+        />
       </div>
     );
   } else {
-    if ((city = null)) {
+    if (city === null) {
       navigator.geolocation.getCurrentPosition(myPosition);
     } else {
       return (

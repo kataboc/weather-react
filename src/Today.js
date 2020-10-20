@@ -3,25 +3,24 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Today(props) {
+  console.log(props.name);
   return (
     <div className="row">
       <div className="col-12">
         <div className="card-today">
           <div className="card-body">
-            <h2 class="card-title">{props.cityName}</h2>
+            <h2 class="card-title">{props.name}</h2>
             <h5 className="card-today-icon" id="todayIcon">
               <FontAwesomeIcon icon={faSun} />
             </h5>
             <p className="card-today-text">
               <div id="weatherDescription">
-                humidity <span id="humidity">20</span>%,{" "}
-                <span id="description">clear sky</span>, wind{" "}
-                <span id="wind">speed</span>
+                humidity {props.humid} %, {props.desc}, wind {props.wind}
                 m/s
               </div>
               <div id="todayDate">Today</div>
               <div className="temperature-today">
-                <span id="temperature">20</span> °<span id="degree">C</span>
+                {props.temp} °<span id="degree">C</span>
               </div>
               <div
                 className="btn-group"
