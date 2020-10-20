@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
+import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
+import { faCloud } from "@fortawesome/free-solid-svg-icons";
+import { faCloudShowersHeavy } from "@fortawesome/free-solid-svg-icons";
+import { faCloudSunRain } from "@fortawesome/free-solid-svg-icons";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
+import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
+import { faWater } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Today(props) {
-  console.log(props.name);
+  let [icon, setIcon] = useState(faSun);
+  if (props.cond === "Clear") {
+    setIcon(faSun);
+  } else {
+    if (
+      (props.cond === "Clouds" && props.desc === "few clouds") ||
+      props.desc === "scattered clouds"
+    ) {
+      setIcon(faCloudSun);
+    } else {
+      if (props.cond === "Clouds") {
+        setIcon(faCloud);
+      } else {
+        if (props.cond === "Drizzle") {
+          setIcon(faCloudShowersHeavy);
+        } else {
+          if (props.cond === "Rain") {
+            setIcon(faCloudSunRain);
+          } else {
+            if (props.cond === "Thunder") {
+              setIcon(faBolt);
+            } else {
+              if (props.cond === "Snow") {
+                setIcon(faSnowflake);
+              } else {
+                {
+                  setIcon(faWater);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   return (
     <div className="row">
       <div className="col-12">
@@ -11,7 +52,7 @@ export default function Today(props) {
           <div className="card-body">
             <h2 class="card-title">{props.name}</h2>
             <h5 className="card-today-icon" id="todayIcon">
-              <FontAwesomeIcon icon={faSun} />
+              <FontAwesomeIcon icon={icon} />
             </h5>
             <p className="card-today-text">
               <div id="weatherDescription">

@@ -11,6 +11,7 @@ export default function Form() {
   let [humidity, setHumidity] = useState("20");
   let [wind, setWind] = useState("5");
   let [description, setDescription] = useState("sunny");
+  let [condition, setCondition] = useState("clear");
   let [place, setPlace] = useState("Your current position");
   function handleSubmit(event) {
     event.preventDefault();
@@ -34,6 +35,7 @@ export default function Form() {
     setHumidity(response.data.main.humidity);
     setWind(response.data.wind.speed);
     setDescription(response.data.weather[0].description);
+    setCondition(response.data.weather[0].main);
     setPlace(response.data.name);
     setReady(true);
   }
@@ -77,6 +79,7 @@ export default function Form() {
           humid={humidity}
           wind={wind}
           desc={description}
+          cond={condition}
         />
       </div>
     );
