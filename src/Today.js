@@ -11,32 +11,98 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Today(props) {
   let [icon, setIcon] = useState(faSun);
-  if (props.cond === "Clear") {
-    setIcon(faSun);
+  const [ready, setReady] = useState(false);
+  // console.log(props.cond);
+  // console.log(props.desc);
+  let condition = props.cond;
+  let description = props.desc;
+  if (ready) {
+    return (
+      <div className="row">
+        <div className="col-12">
+          <div className="card-today">
+            <div className="card-body">
+              <h2 class="card-title">{props.name}</h2>
+              <h5 className="card-today-icon" id="todayIcon">
+                <FontAwesomeIcon icon={icon} />
+              </h5>
+              <p className="card-today-text">
+                <div id="weatherDescription">
+                  humidity {props.humid} %, {props.desc}, wind {props.wind}
+                  m/s
+                </div>
+                <div id="todayDate">Today</div>
+                <div className="temperature-today">
+                  {props.temp} °<span id="degree">C</span>
+                </div>
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic example"
+                >
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    id="button-celsius"
+                  >
+                    °C
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    id="button-fahrenheit"
+                  >
+                    °F
+                  </button>
+                </div>
+              </p>
+            </div>
+            <a
+              href="https://app.netlify.com/sites/serene-bell-0f095b"
+              id="back-to-you"
+            >
+              Back to your current position
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   } else {
-    if (
-      (props.cond === "Clouds" && props.desc === "few clouds") ||
-      props.desc === "scattered clouds"
-    ) {
-      setIcon(faCloudSun);
+    if (condition === "Clear") {
+      setIcon(faSun);
+      setReady(true);
     } else {
-      if (props.cond === "Clouds") {
-        setIcon(faCloud);
+      if (
+        (condition === "Clouds" && description === "few clouds") ||
+        (condition === "Clouds" && description === "scattered clouds")
+      ) {
+        setIcon(faCloudSun);
+        setReady(true);
       } else {
-        if (props.cond === "Drizzle") {
-          setIcon(faCloudShowersHeavy);
+        if (condition === "Clouds") {
+          setIcon(faCloud);
+          setReady(true);
         } else {
-          if (props.cond === "Rain") {
-            setIcon(faCloudSunRain);
+          if (condition === "Drizzle") {
+            setIcon(faCloudShowersHeavy);
+            setReady(true);
           } else {
-            if (props.cond === "Thunder") {
-              setIcon(faBolt);
+            if (condition === "Rain") {
+              setIcon(faCloudSunRain);
+              setReady(true);
             } else {
-              if (props.cond === "Snow") {
-                setIcon(faSnowflake);
+              if (condition === "Thunder") {
+                setIcon(faBolt);
+                setReady(true);
               } else {
-                {
-                  setIcon(faWater);
+                if (condition === "Snow") {
+                  setIcon(faSnowflake);
+                  setReady(true);
+                } else {
+                  {
+                    setIcon(faWater);
+                    setReady(true);
+                  }
                 }
               }
             }
@@ -44,55 +110,55 @@ export default function Today(props) {
         }
       }
     }
-  }
-  return (
-    <div className="row">
-      <div className="col-12">
-        <div className="card-today">
-          <div className="card-body">
-            <h2 class="card-title">{props.name}</h2>
-            <h5 className="card-today-icon" id="todayIcon">
-              <FontAwesomeIcon icon={icon} />
-            </h5>
-            <p className="card-today-text">
-              <div id="weatherDescription">
-                humidity {props.humid} %, {props.desc}, wind {props.wind}
-                m/s
-              </div>
-              <div id="todayDate">Today</div>
-              <div className="temperature-today">
-                {props.temp} °<span id="degree">C</span>
-              </div>
-              <div
-                className="btn-group"
-                role="group"
-                aria-label="Basic example"
-              >
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  id="button-celsius"
+    return (
+      <div className="row">
+        <div className="col-12">
+          <div className="card-today">
+            <div className="card-body">
+              <h2 class="card-title">{props.name}</h2>
+              <h5 className="card-today-icon" id="todayIcon">
+                <FontAwesomeIcon icon={icon} />
+              </h5>
+              <p className="card-today-text">
+                <div id="weatherDescription">
+                  humidity {props.humid} %, {props.desc}, wind {props.wind}
+                  m/s
+                </div>
+                <div id="todayDate">Today</div>
+                <div className="temperature-today">
+                  {props.temp} °<span id="degree">C</span>
+                </div>
+                <div
+                  className="btn-group"
+                  role="group"
+                  aria-label="Basic example"
                 >
-                  °C
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  id="button-fahrenheit"
-                >
-                  °F
-                </button>
-              </div>
-            </p>
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    id="button-celsius"
+                  >
+                    °C
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    id="button-fahrenheit"
+                  >
+                    °F
+                  </button>
+                </div>
+              </p>
+            </div>
+            <a
+              href="https://app.netlify.com/sites/serene-bell-0f095b"
+              id="back-to-you"
+            >
+              Back to your current position
+            </a>
           </div>
-          <a
-            href="https://app.netlify.com/sites/serene-bell-0f095b"
-            id="back-to-you"
-          >
-            Back to your current position
-          </a>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

@@ -12,7 +12,7 @@ export default function Form() {
   let [wind, setWind] = useState("5");
   let [description, setDescription] = useState("sunny");
   let [condition, setCondition] = useState("clear");
-  let [place, setPlace] = useState("Your current position");
+  let [place, setPlace] = useState(null);
   function handleSubmit(event) {
     event.preventDefault();
     setCity(search);
@@ -45,6 +45,8 @@ export default function Form() {
     setHumidity(response.data.main.humidity);
     setWind(response.data.wind.speed);
     setDescription(response.data.weather[0].description);
+    setCondition(response.data.weather[0].main);
+    setPlace(response.data.name);
     setReady(true);
   }
   if (ready) {
@@ -84,7 +86,7 @@ export default function Form() {
       </div>
     );
   } else {
-    if (city === null) {
+    if (city === null || place === null) {
       navigator.geolocation.getCurrentPosition(myPosition);
     } else {
       return (
