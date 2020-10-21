@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Today from "./Today";
+import Forecast from "./Forecast";
 
 export default function Form() {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
@@ -52,45 +53,7 @@ export default function Form() {
   if (ready) {
     return (
       <div>
-        <form className="form-row" onSubmit={handleSubmit}>
-          <div className="col-12">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Your city"
-                aria-describedby="button-addon1"
-                id="your-city"
-                onChange={findCity}
-              />
-              <div className="input-group-append">
-                <button
-                  type="submit"
-                  className="btn btn-primary mb-2"
-                  id="button-addon1"
-                >
-                  Apply
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-        <Today
-          name={place}
-          temp={temperature}
-          humid={humidity}
-          wind={wind}
-          desc={description}
-          cond={condition}
-        />
-      </div>
-    );
-  } else {
-    if (city === null || place === null) {
-      navigator.geolocation.getCurrentPosition(myPosition);
-    } else {
-      return (
-        <div>
+        <div className="container">
           <form className="form-row" onSubmit={handleSubmit}>
             <div className="col-12">
               <div className="input-group">
@@ -114,7 +77,55 @@ export default function Form() {
               </div>
             </div>
           </form>
-          <Today cityName={city} />
+          <Today
+            name={place}
+            temp={temperature}
+            humid={humidity}
+            wind={wind}
+            desc={description}
+            cond={condition}
+          />
+        </div>
+        <div>
+          <Forecast city={city} />
+        </div>
+      </div>
+    );
+  } else {
+    if (city === null || place === null) {
+      navigator.geolocation.getCurrentPosition(myPosition);
+    } else {
+      return (
+        <div>
+          <div className="container">
+            <form className="form-row" onSubmit={handleSubmit}>
+              <div className="col-12">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Your city"
+                    aria-describedby="button-addon1"
+                    id="your-city"
+                    onChange={findCity}
+                  />
+                  <div className="input-group-append">
+                    <button
+                      type="submit"
+                      className="btn btn-primary mb-2"
+                      id="button-addon1"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <Today cityName={city} />
+          </div>
+          <div>
+            <Forecast city={place} />
+          </div>
         </div>
       );
     }

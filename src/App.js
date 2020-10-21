@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import Body from "./Body";
+import Form from "./Form";
 
 export default function App() {
   return (
     <div>
-      <Body />
+      <div className="body">
+        <Form />
+      </div>
       <p>
         Coded by{" "}
         <a href="https://github.com/kataboc/weather-react">
