@@ -22,6 +22,14 @@ export default function Forecast(props) {
 
   let [description, setDescription] = useState("sunny");
   let [condition, setCondition] = useState("clear");
+  let [description1, setDescription1] = useState("sunny");
+  let [condition1, setCondition1] = useState("clear");
+  let [description2, setDescription2] = useState("sunny");
+  let [condition2, setCondition2] = useState("clear");
+  let [description3, setDescription3] = useState("sunny");
+  let [condition3, setCondition3] = useState("clear");
+  let [description4, setDescription4] = useState("sunny");
+  let [condition4, setCondition4] = useState("clear");
   function myPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -37,16 +45,24 @@ export default function Forecast(props) {
     console.log(response.data);
     setTemperature(Math.round(response.data.list[7].main.temp));
     setDate(response.data.list[7].dt_txt);
-    // setDescription(response.data.weather[0].description);
-    // setCondition(response.data.weather[0].main);
+    setDescription(response.data.list[7].weather[0].description);
+    setCondition(response.data.list[7].weather[0].main);
     setTemperature1(Math.round(response.data.list[15].main.temp));
     setDate1(response.data.list[15].dt_txt);
+    setDescription1(response.data.list[15].weather[0].description);
+    setCondition1(response.data.list[15].weather[0].main);
     setTemperature2(Math.round(response.data.list[23].main.temp));
     setDate2(response.data.list[23].dt_txt);
+    setDescription2(response.data.list[23].weather[0].description);
+    setCondition2(response.data.list[23].weather[0].main);
     setTemperature3(Math.round(response.data.list[31].main.temp));
     setDate3(response.data.list[31].dt_txt);
+    setDescription3(response.data.list[31].weather[0].description);
+    setCondition3(response.data.list[31].weather[0].main);
     setTemperature4(Math.round(response.data.list[39].main.temp));
     setDate4(response.data.list[39].dt_txt);
+    setDescription4(response.data.list[39].weather[0].description);
+    setCondition4(response.data.list[39].weather[0].main);
 
     setReady(true);
   }
@@ -54,11 +70,36 @@ export default function Forecast(props) {
   if (ready) {
     return (
       <div className="row" id="forecast-row">
-        <Tomorrow city={props.city} date={date} temp={temperature} />
-        <Tomorrow1 city={props.city} date={date1} temp={temperature1} />
-        <Tomorrow2 city={props.city} date={date2} temp={temperature2} />
-        <Tomorrow3 city={props.city} date={date3} temp={temperature3} />
-        <Tomorrow4 city={props.city} date={date4} temp={temperature4} />
+        <Tomorrow
+          date={date}
+          temp={temperature}
+          desc={description}
+          cond={condition}
+        />
+        <Tomorrow1
+          date={date1}
+          temp={temperature1}
+          desc={description1}
+          cond={condition1}
+        />
+        <Tomorrow2
+          date={date2}
+          temp={temperature2}
+          desc={description2}
+          cond={condition2}
+        />
+        <Tomorrow3
+          date={date3}
+          temp={temperature3}
+          desc={description3}
+          cond={condition3}
+        />
+        <Tomorrow4
+          date={date4}
+          temp={temperature4}
+          desc={description4}
+          cond={condition4}
+        />
       </div>
     );
   } else {

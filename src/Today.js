@@ -99,10 +99,8 @@ export default function Today(props) {
                   setIcon(faSnowflake);
                   setReady(true);
                 } else {
-                  {
-                    setIcon(faWater);
-                    setReady(true);
-                  }
+                  setIcon(faWater);
+                  setReady(true);
                 }
               }
             }
