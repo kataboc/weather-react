@@ -5,22 +5,17 @@ import Forecast from "./Forecast";
 
 export default function Form() {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
-  const [ready, setReady] = useState(false);
-  let [search, setSearch] = useState(null);
   let [city, setCity] = useState(null);
-  let [temperature, setTemperature] = useState("10");
-  let [humidity, setHumidity] = useState("20");
-  let [wind, setWind] = useState("5");
-  let [description, setDescription] = useState("sunny");
-  let [condition, setCondition] = useState("clear");
-  let [place, setPlace] = useState(null);
+  let [weatherData, setWeatherData] = useState({ ready: false });
   function handleSubmit(event) {
     event.preventDefault();
-    setCity(search);
+    search();
   }
   function findCity(event) {
-    setSearch(event.target.value);
-    let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${event.target.value}&units=metric&appid=${apiKey}`;
+    setCity(event.target.value);
+  }
+  function search() {
+    let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     console.log(apiUrlCity);
     axios.get(apiUrlCity).then(handleCityResponse);
   }
@@ -31,26 +26,29 @@ export default function Form() {
     axios.get(apiUrlCoord).then(handleCoordResponse);
   }
   function handleCoordResponse(response) {
-    console.log(response.data);
-    setTemperature(Math.round(response.data.main.temp));
-    setHumidity(response.data.main.humidity);
-    setWind(response.data.wind.speed);
-    setDescription(response.data.weather[0].description);
-    setCondition(response.data.weather[0].main);
-    setPlace(response.data.name);
-    setReady(true);
+    setWeatherData({
+      temperature: Math.round(response.data.main.temp),
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      description: response.data.weather[0].description,
+      condition: response.data.weather[0].main,
+      place: response.data.name,
+      ready: true,
+    });
   }
   function handleCityResponse(response) {
-    console.log(response.data);
-    setTemperature(Math.round(response.data.main.temp));
-    setHumidity(response.data.main.humidity);
-    setWind(response.data.wind.speed);
-    setDescription(response.data.weather[0].description);
-    setCondition(response.data.weather[0].main);
-    setPlace(response.data.name);
-    setReady(true);
+    console.log(response.data.name);
+    setWeatherData({
+      temperature: Math.round(response.data.main.temp),
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      description: response.data.weather[0].description,
+      condition: response.data.weather[0].main,
+      place: response.data.name,
+      ready: true,
+    });
   }
-  if (ready) {
+  if (weatherData.ready) {
     return (
       <div>
         <div className="container">
@@ -78,57 +76,53 @@ export default function Form() {
             </div>
           </form>
           <Today
-            name={place}
-            temp={temperature}
-            humid={humidity}
-            wind={wind}
-            desc={description}
-            cond={condition}
+            name={weatherData.place}
+            temp={weatherData.temperature}
+            humid={weatherData.humidity}
+            wind={weatherData.wind}
+            desc={weatherData.description}
+            cond={weatherData.condition}
           />
         </div>
         <div>
-          <Forecast city={city} />
+          <Forecast city={weatherData.place} />
         </div>
       </div>
     );
   } else {
-    if (city === null || place === null) {
+    if (city === null) {
       navigator.geolocation.getCurrentPosition(myPosition);
-    } else {
-      return (
-        <div>
-          <div className="container">
-            <form className="form-row" onSubmit={handleSubmit}>
-              <div className="col-12">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Your city"
-                    aria-describedby="button-addon1"
-                    id="your-city"
-                    onChange={findCity}
-                  />
-                  <div className="input-group-append">
-                    <button
-                      type="submit"
-                      className="btn btn-primary mb-2"
-                      id="button-addon1"
-                    >
-                      Apply
-                    </button>
-                  </div>
+    }
+    return (
+      <div>
+        <div className="container">
+          <form className="form-row" onSubmit={handleSubmit}>
+            <div className="col-12">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Your city"
+                  aria-describedby="button-addon1"
+                  id="your-city"
+                  onChange={findCity}
+                />
+                <div className="input-group-append">
+                  <button
+                    type="submit"
+                    className="btn btn-primary mb-2"
+                    id="button-addon1"
+                  >
+                    Apply
+                  </button>
                 </div>
               </div>
-            </form>
-            <Today cityName={city} />
-          </div>
-          <div>
-            <Forecast city={place} />
-          </div>
+            </div>
+          </form>
+          Loading...
         </div>
-      );
-    }
-    return <h2>Loading...</h2>;
+        <div>Loading..</div>
+      </div>
+    );
   }
 }
