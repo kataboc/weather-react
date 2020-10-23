@@ -6,17 +6,18 @@ import Forecast from "./Forecast";
 export default function Form() {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
   let [city, setCity] = useState(null);
-  let [weatherData, setWeatherData] = useState({ ready: false });
+  let [weatherData, setWeatherData] = useState("");
+  let [ready, setReady] = useState(false);
   function handleSubmit(event) {
     event.preventDefault();
     search();
+    setReady(false);
   }
   function findCity(event) {
     setCity(event.target.value);
   }
   function search() {
     let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    console.log(apiUrlCity);
     axios.get(apiUrlCity).then(handleCityResponse);
   }
   function myPosition(position) {
@@ -26,6 +27,7 @@ export default function Form() {
     axios.get(apiUrlCoord).then(handleCoordResponse);
   }
   function handleCoordResponse(response) {
+    console.log(response.data);
     setWeatherData({
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
@@ -33,11 +35,11 @@ export default function Form() {
       description: response.data.weather[0].description,
       condition: response.data.weather[0].main,
       place: response.data.name,
-      ready: true,
+      date: new Date(response.data.dt * 1000),
     });
+    setReady(true);
   }
   function handleCityResponse(response) {
-    console.log(response.data.name);
     setWeatherData({
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
@@ -45,10 +47,11 @@ export default function Form() {
       description: response.data.weather[0].description,
       condition: response.data.weather[0].main,
       place: response.data.name,
-      ready: true,
+      date: new Date(response.data.dt * 1000),
     });
+    setReady(true);
   }
-  if (weatherData.ready) {
+  if (ready) {
     return (
       <div>
         <div className="container">
@@ -76,6 +79,7 @@ export default function Form() {
             </div>
           </form>
           <Today
+            date={weatherData.date}
             name={weatherData.place}
             temp={weatherData.temperature}
             humid={weatherData.humidity}
@@ -85,7 +89,7 @@ export default function Form() {
           />
         </div>
         <div>
-          <Forecast city={weatherData.place} />
+          <Forecast city={city} />
         </div>
       </div>
     );

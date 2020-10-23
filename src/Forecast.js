@@ -10,6 +10,7 @@ export default function Forecast(props) {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
   const [place, setPlace] = useState(null);
   let [forecastData, setForecastData] = useState({ ready: false });
+  let [ready, setReady] = useState(false);
   function myPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -25,6 +26,7 @@ export default function Forecast(props) {
     setPlace(city);
     const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${apiKey}`;
     axios.get(apiUrlForecast).then(handleForecast);
+    setReady(false);
   }
   function handleForecast(response) {
     console.log(response.data);
@@ -36,7 +38,7 @@ export default function Forecast(props) {
       temperature1: Math.round(response.data.list[15].main.temp),
       date1: response.data.list[15].dt_txt,
       description1: response.data.list[15].weather[0].description,
-      dcndition1: response.data.list[15].weather[0].main,
+      condition1: response.data.list[15].weather[0].main,
       temperature2: Math.round(response.data.list[23].main.temp),
       date2: response.data.list[23].dt_txt,
       description2: response.data.list[23].weather[0].description,
@@ -49,10 +51,10 @@ export default function Forecast(props) {
       date4: response.data.list[39].dt_txt,
       description4: response.data.list[39].weather[0].description,
       condition4: response.data.list[39].weather[0].main,
-      ready: true,
     });
+    setReady(true);
   }
-  if (forecastData.ready) {
+  if (ready) {
     return (
       <div className="row" id="forecast-row">
         <Tomorrow
@@ -92,11 +94,11 @@ export default function Forecast(props) {
       navigator.geolocation.getCurrentPosition(myPosition);
     } else {
       handleCityResponse(props.city);
-      return (
-        <div className="row" id="forecast-row">
-          Loading the forecast...
-        </div>
-      );
     }
+    return (
+      <div className="row" id="forecast-row">
+        Loading the forecast...
+      </div>
+    );
   }
 }
