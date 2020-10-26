@@ -9,22 +9,13 @@ import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { faWater } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DateFormat from "./DateFormat";
+import Button from "./Button";
 
 export default function Today(props) {
   let [icon, setIcon] = useState(faSun);
   const [ready, setReady] = useState(false);
-  const [temperature, setTemperature] = useState(props.temp);
-  const [unit, setUnit] = useState("°C");
   let condition = props.cond;
   let description = props.desc;
-  function showCelcius() {
-    setTemperature(props.temp);
-    setUnit("°C");
-  }
-  function showFahrenheit() {
-    setTemperature(Math.round(props.temp * (9 / 5) + 32));
-    setUnit("°F");
-  }
   if (ready) {
     return (
       <div className="row">
@@ -43,84 +34,54 @@ export default function Today(props) {
                 <div id="todayDate">
                   <DateFormat date={props.date} />
                 </div>
-                <div className="temperature-today">
-                  {temperature} {unit}
-                </div>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic example"
-                >
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    id="button-celsius"
-                    onClick={showCelcius}
-                  >
-                    °C
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    id="button-fahrenheit"
-                    onClick={showFahrenheit}
-                  >
-                    °F
-                  </button>
-                </div>
+                <Button temp={props.temp} />
               </p>
             </div>
-            <a
-              href="https://app.netlify.com/sites/serene-bell-0f095b"
-              id="back-to-you"
-            >
-              Back to your current position
-            </a>
           </div>
         </div>
       </div>
     );
   } else {
-    if (condition === "Clear") {
-      setIcon(faSun);
-      setReady(true);
-    } else {
-      if (
-        (condition === "Clouds" && description === "few clouds") ||
-        (condition === "Clouds" && description === "scattered clouds")
-      ) {
-        setIcon(faCloudSun);
-        setReady(true);
-      } else {
-        if (condition === "Clouds") {
-          setIcon(faCloud);
-          setReady(true);
-        } else {
-          if (condition === "Drizzle") {
-            setIcon(faCloudShowersHeavy);
-            setReady(true);
-          } else {
-            if (condition === "Rain") {
-              setIcon(faCloudSunRain);
-              setReady(true);
-            } else {
-              if (condition === "Thunder") {
-                setIcon(faBolt);
-                setReady(true);
-              } else {
-                if (condition === "Snow") {
-                  setIcon(faSnowflake);
-                  setReady(true);
-                } else {
-                  setIcon(faWater);
-                  setReady(true);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    // if (condition === "Clear") {
+    //   setIcon(faSun);
+    //   setReady(true);
+    // } else {
+    //   if (
+    //     (condition === "Clouds" && description === "few clouds") ||
+    //     (condition === "Clouds" && description === "scattered clouds")
+    //   ) {
+    //     setIcon(faCloudSun);
+    //     setReady(true);
+    //   } else {
+    //     if (condition === "Clouds") {
+    //       setIcon(faCloud);
+    //       setReady(true);
+    //     } else {
+    //       if (condition === "Drizzle") {
+    //         setIcon(faCloudShowersHeavy);
+    //         setReady(true);
+    //       } else {
+    //         if (condition === "Rain") {
+    //           setIcon(faCloudSunRain);
+    //           setReady(true);
+    //         } else {
+    //           if (condition === "Thunder") {
+    //             setIcon(faBolt);
+    //             setReady(true);
+    //           } else {
+    //             if (condition === "Snow") {
+    //               setIcon(faSnowflake);
+    //               setReady(true);
+    //             } else {
+    //               setIcon(faWater);
+    //               setReady(true);
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
     return (
       <div className="row">
         <div className="col-12">

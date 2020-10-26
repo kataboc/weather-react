@@ -20,6 +20,9 @@ export default function Form() {
     let apiUrlCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     axios.get(apiUrlCity).then(handleCityResponse);
   }
+  function backToYou() {
+    navigator.geolocation.getCurrentPosition(myPosition);
+  }
   function myPosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -87,6 +90,16 @@ export default function Form() {
             desc={weatherData.description}
             cond={weatherData.condition}
           />
+        </div>
+        <div>
+          <button
+            type="button"
+            className="btn btn-link"
+            id="backToYou"
+            onClick={backToYou()}
+          >
+            Back to your current position
+          </button>
         </div>
         <div>
           <Forecast city={city} />

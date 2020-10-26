@@ -43,8 +43,7 @@ form {
 .temperature-today {
   font-weight: 500;
 }
-#back-to-you {
-  display: block;
+#backToYou {
   text-align: center;
   font-size: 16px;
 }
