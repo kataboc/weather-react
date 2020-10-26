@@ -13,10 +13,18 @@ import DateFormat from "./DateFormat";
 export default function Today(props) {
   let [icon, setIcon] = useState(faSun);
   const [ready, setReady] = useState(false);
-  console.log(props.cond);
-  // console.log(props.desc);
+  const [temperature, setTemperature] = useState(props.temp);
+  const [unit, setUnit] = useState("°C");
   let condition = props.cond;
   let description = props.desc;
+  function showCelcius() {
+    setTemperature(props.temp);
+    setUnit("°C");
+  }
+  function showFahrenheit() {
+    setTemperature(Math.round(props.temp * (9 / 5) + 32));
+    setUnit("°F");
+  }
   if (ready) {
     return (
       <div className="row">
@@ -36,7 +44,7 @@ export default function Today(props) {
                   <DateFormat date={props.date} />
                 </div>
                 <div className="temperature-today">
-                  {props.temp} °<span id="degree">C</span>
+                  {temperature} {unit}
                 </div>
                 <div
                   className="btn-group"
@@ -47,6 +55,7 @@ export default function Today(props) {
                     type="button"
                     className="btn btn-info"
                     id="button-celsius"
+                    onClick={showCelcius}
                   >
                     °C
                   </button>
@@ -54,6 +63,7 @@ export default function Today(props) {
                     type="button"
                     className="btn btn-info"
                     id="button-fahrenheit"
+                    onClick={showFahrenheit}
                   >
                     °F
                   </button>
