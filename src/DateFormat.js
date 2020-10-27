@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function DateFormat(props) {
-  console.log(props.date);
   let days = [
     "Sunday",
     "Monday",
@@ -36,7 +35,6 @@ export default function DateFormat(props) {
   if (minute < 10) {
     minute = `0${minute}`;
   }
-
   return (
     <div>
       {day}, {date}.{month} {hour}:{minute}

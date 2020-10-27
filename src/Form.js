@@ -30,16 +30,16 @@ export default function Form() {
     axios.get(apiUrlCoord).then(handleCoordResponse);
   }
   function handleCoordResponse(response) {
-    console.log(response.data);
     setWeatherData({
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
-      condition: response.data.weather[0].main,
+      condition: response.data.weather[0].condition,
       place: response.data.name,
       date: new Date(response.data.dt * 1000),
     });
+    setCity(response.data.name);
     setReady(true);
   }
   function handleCityResponse(response) {
@@ -48,7 +48,7 @@ export default function Form() {
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
-      condition: response.data.weather[0].main,
+      condition: response.data.weather[0].condition,
       place: response.data.name,
       date: new Date(response.data.dt * 1000),
     });

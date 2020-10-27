@@ -42,82 +42,57 @@ export default function Today(props) {
       </div>
     );
   } else {
-    // if (condition === "Clear") {
-    //   setIcon(faSun);
-    //   setReady(true);
-    // } else {
-    //   if (
-    //     (condition === "Clouds" && description === "few clouds") ||
-    //     (condition === "Clouds" && description === "scattered clouds")
-    //   ) {
-    //     setIcon(faCloudSun);
-    //     setReady(true);
-    //   } else {
-    //     if (condition === "Clouds") {
-    //       setIcon(faCloud);
-    //       setReady(true);
-    //     } else {
-    //       if (condition === "Drizzle") {
-    //         setIcon(faCloudShowersHeavy);
-    //         setReady(true);
-    //       } else {
-    //         if (condition === "Rain") {
-    //           setIcon(faCloudSunRain);
-    //           setReady(true);
-    //         } else {
-    //           if (condition === "Thunder") {
-    //             setIcon(faBolt);
-    //             setReady(true);
-    //           } else {
-    //             if (condition === "Snow") {
-    //               setIcon(faSnowflake);
-    //               setReady(true);
-    //             } else {
-    //               setIcon(faWater);
-    //               setReady(true);
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-    return (
-      <div className="row">
-        <div className="col-12">
-          <div className="card-today">
-            <div className="card-body">
-              <h2 class="card-title">Loading weather for {props.name}</h2>
-              <div
-                className="btn-group"
-                role="group"
-                aria-label="Basic example"
-              >
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  id="button-celsius"
-                >
-                  °C
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  id="button-fahrenheit"
-                >
-                  °F
-                </button>
-              </div>
-            </div>
-            <a
-              href="https://app.netlify.com/sites/serene-bell-0f095b"
-              id="back-to-you"
-            >
-              Back to your current position
-            </a>
+    if (condition === "Clear") {
+      setIcon(faSun);
+      setReady(true);
+    } else {
+      if (
+        (condition === "Clouds" && description === "few clouds") ||
+        (condition === "Clouds" && description === "scattered clouds")
+      ) {
+        setIcon(faCloudSun);
+        setReady(true);
+      } else {
+        if (condition === "Clouds") {
+          setIcon(faCloud);
+          setReady(true);
+        } else {
+          if (condition === "Drizzle") {
+            setIcon(faCloudShowersHeavy);
+            setReady(true);
+          } else {
+            if (condition === "Rain") {
+              setIcon(faCloudSunRain);
+              setReady(true);
+            } else {
+              if (condition === "Thunder") {
+                setIcon(faBolt);
+                setReady(true);
+              } else {
+                if (condition === "Snow") {
+                  setIcon(faSnowflake);
+                  setReady(true);
+                } else {
+                  setIcon(faWater);
+                  setReady(true);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return (
+    <div className="row">
+      <div className="col-12">
+        <div className="card-today">
+          <div className="card-body">
+            <h2 class="card-title">Loading the weather...</h2>
           </div>
+          <Button temp={props.temp} />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

@@ -15,18 +15,20 @@ export default function Forecast(props) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     const apiUrlCoord = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    setReady(true);
     axios.get(apiUrlCoord).then(handleCoordResponse);
   }
   function handleCoordResponse(response) {
     setPlace(response.data.name);
     const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${apiKey}`;
+    setReady(true);
     axios.get(apiUrlForecast).then(handleForecast);
   }
   function handleCityResponse(city) {
     setPlace(city);
     const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${apiKey}`;
+    setReady(true);
     axios.get(apiUrlForecast).then(handleForecast);
-    setReady(false);
   }
   function handleForecast(response) {
     console.log(response.data);
