@@ -84,7 +84,7 @@ export default function Form() {
             type="button"
             className="btn btn-link"
             id="backToYou"
-            onClick={() => backToYou}
+            onClick={() => backToYou()}
           >
             Back to your current position
           </button>

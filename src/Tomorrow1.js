@@ -22,12 +22,12 @@ export default function Tomorrow1(props) {
             <h5 className="card-icon" id="tomorrowIcon">
               <FontAwesomeIcon icon={icon} />
             </h5>
-            <p className="card-text">
+            <div className="card-text">
               <div id="tomorrow">{props.date}</div>
               <div className="temperature">
                 {props.temp} °<span className="degrees">C</span>
               </div>
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -81,12 +81,12 @@ export default function Tomorrow1(props) {
           <h5 className="card-icon" id="tomorrowIcon">
             <FontAwesomeIcon icon={icon} />
           </h5>
-          <p className="card-text">
+          <div className="card-text">
             <div id="tomorrow">{props.date}</div>
             <div className="temperature">
               {props.temp} °<span className="degrees">C</span>
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </div>
