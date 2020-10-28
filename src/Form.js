@@ -8,10 +8,10 @@ export default function Form() {
   let [city, setCity] = useState(null);
   let [weatherData, setWeatherData] = useState("");
   let [ready, setReady] = useState(false);
+
   function handleSubmit(event) {
     event.preventDefault();
     search();
-    setReady(false);
   }
   function findCity(event) {
     setCity(event.target.value);
@@ -27,23 +27,11 @@ export default function Form() {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     const apiUrlCoord = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-    axios.get(apiUrlCoord).then(handleCoordResponse);
-  }
-  function handleCoordResponse(response) {
-    setWeatherData({
-      temperature: Math.round(response.data.main.temp),
-      humidity: response.data.main.humidity,
-      wind: response.data.wind.speed,
-      description: response.data.weather[0].description,
-      condition: response.data.weather[0].condition,
-      place: response.data.name,
-      date: new Date(response.data.dt * 1000),
-    });
-    setCity(response.data.name);
-    setReady(true);
+    axios.get(apiUrlCoord).then(handleCityResponse);
   }
   function handleCityResponse(response) {
     setWeatherData({
+      city: response.data.name,
       temperature: Math.round(response.data.main.temp),
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
@@ -96,20 +84,18 @@ export default function Form() {
             type="button"
             className="btn btn-link"
             id="backToYou"
-            onClick={backToYou()}
+            onClick={() => backToYou}
           >
             Back to your current position
           </button>
         </div>
         <div>
-          <Forecast city={city} />
+          <Forecast city={weatherData.city} />
         </div>
       </div>
     );
   } else {
-    if (city === null) {
-      navigator.geolocation.getCurrentPosition(myPosition);
-    }
+    navigator.geolocation.getCurrentPosition(myPosition);
     return (
       <div>
         <div className="container">

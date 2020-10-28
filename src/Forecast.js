@@ -8,31 +8,16 @@ import axios from "axios";
 
 export default function Forecast(props) {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
-  const [place, setPlace] = useState(null);
   let [forecastData, setForecastData] = useState({ ready: false });
   let [ready, setReady] = useState(false);
-  function myPosition(position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    const apiUrlCoord = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-    setReady(true);
-    axios.get(apiUrlCoord).then(handleCoordResponse);
-  }
-  function handleCoordResponse(response) {
-    setPlace(response.data.name);
-    const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${apiKey}`;
-    setReady(true);
-    axios.get(apiUrlForecast).then(handleForecast);
-  }
-  function handleCityResponse(city) {
-    setPlace(city);
-    const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${apiKey}`;
-    setReady(true);
+
+  function handleCityResponse() {
+    const apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${props.city}&units=metric&appid=${apiKey}`;
     axios.get(apiUrlForecast).then(handleForecast);
   }
   function handleForecast(response) {
-    console.log(response.data);
     setForecastData({
+      city: response.data.city.name,
       temperature: Math.round(response.data.list[7].main.temp),
       date: response.data.list[7].dt_txt,
       description: response.data.list[7].weather[0].description,
@@ -56,7 +41,7 @@ export default function Forecast(props) {
     });
     setReady(true);
   }
-  if (ready) {
+  if (ready && props.city === forecastData.city) {
     return (
       <div className="row" id="forecast-row">
         <Tomorrow
@@ -92,11 +77,8 @@ export default function Forecast(props) {
       </div>
     );
   } else {
-    if (props.city === null) {
-      navigator.geolocation.getCurrentPosition(myPosition);
-    } else {
-      handleCityResponse(props.city);
-    }
+    handleCityResponse(props.city);
+
     return (
       <div className="row" id="forecast-row">
         Loading the forecast...
