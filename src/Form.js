@@ -36,7 +36,7 @@ export default function Form() {
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
-      condition: response.data.weather[0].condition,
+      condition: response.data.weather[0].main,
       place: response.data.name,
       date: new Date(response.data.dt * 1000),
     });

@@ -16,6 +16,7 @@ export default function Today(props) {
   const [ready, setReady] = useState(false);
   let condition = props.cond;
   let description = props.desc;
+  console.log(props.cond);
   if (ready) {
     return (
       <div className="row">
