@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 import Today from "./Today";
 import Forecast from "./Forecast";
 
@@ -30,7 +31,6 @@ export default function Form() {
     axios.get(apiUrlCoord).then(handleCityResponse);
   }
   function handleCityResponse(response) {
-    console.log(response.data.weather[0]);
     setWeatherData({
       city: response.data.name,
       temperature: Math.round(response.data.main.temp),
@@ -41,8 +41,6 @@ export default function Form() {
       place: response.data.name,
       date: new Date(response.data.dt * 1000),
     });
-    console.log(weatherData.condition);
-    console.log(weatherData.city);
     setReady(true);
   }
   if (ready) {
@@ -125,9 +123,11 @@ export default function Form() {
               </div>
             </div>
           </form>
-          Loading...
+          <div className="sweet-loading" id="todayLoad">
+            <ClipLoader size={250} color={"orange"} loading={ready === false} />
+          </div>
         </div>
-        <div>Loading..</div>
+        <Forecast />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 import { faCloud } from "@fortawesome/free-solid-svg-icons";
@@ -10,81 +10,46 @@ import { faWater } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Tomorrow3(props) {
-  let [icon, setIcon] = useState(faSun);
-  const [ready, setReady] = useState(false);
   let condition = props.cond;
   let description = props.desc;
-  if (ready) {
-    return (
-      <div className="col">
-        <div className="card-f">
-          <div className="card-body">
-            <h5 className="card-icon" id="tomorrowIcon">
-              <FontAwesomeIcon icon={icon} />
-            </h5>
-            <div className="card-text">
-              <div id="tomorrow">{props.date}</div>
-              <div className="temperature">
-                {props.temp} °<span className="degrees">C</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
+  let fahrenheit = Math.round(props.temp * (9 / 5) + 32);
+  function getIcon() {
+    let icon = "";
     if (condition === "Clear") {
-      setIcon(faSun);
-      setReady(true);
+      icon = faSun;
+    } else if (
+      (condition === "Clouds" && description === "few clouds") ||
+      (condition === "Clouds" && description === "scattered clouds")
+    ) {
+      icon = faCloudSun;
+    } else if (condition === "Clouds") {
+      icon = faCloud;
+    } else if (condition === "Drizzle") {
+      icon = faCloudShowersHeavy;
+    } else if (condition === "Rain") {
+      icon = faCloudSunRain;
+    } else if (condition === "Thunder") {
+      icon = faBolt;
+    } else if (condition === "Snow") {
+      icon = faSnowflake;
     } else {
-      if (
-        (condition === "Clouds" && description === "few clouds") ||
-        (condition === "Clouds" && description === "scattered clouds")
-      ) {
-        setIcon(faCloudSun);
-        setReady(true);
-      } else {
-        if (condition === "Clouds") {
-          setIcon(faCloud);
-          setReady(true);
-        } else {
-          if (condition === "Drizzle") {
-            setIcon(faCloudShowersHeavy);
-            setReady(true);
-          } else {
-            if (condition === "Rain") {
-              setIcon(faCloudSunRain);
-              setReady(true);
-            } else {
-              if (condition === "Thunder") {
-                setIcon(faBolt);
-                setReady(true);
-              } else {
-                if (condition === "Snow") {
-                  setIcon(faSnowflake);
-                  setReady(true);
-                } else {
-                  setIcon(faWater);
-                  setReady(true);
-                }
-              }
-            }
-          }
-        }
-      }
+      icon = faWater;
     }
+
+    return icon;
   }
   return (
     <div className="col">
       <div className="card-f">
         <div className="card-body">
           <h5 className="card-icon" id="tomorrowIcon">
-            <FontAwesomeIcon icon={icon} />
+            <FontAwesomeIcon icon={getIcon()} />
           </h5>
           <div className="card-text">
             <div id="tomorrow">{props.date}</div>
             <div className="temperature">
               {props.temp} °<span className="degrees">C</span>
+              <div className="fahrenheit">{fahrenheit} °F</div>
             </div>
           </div>
         </div>

@@ -48,6 +48,11 @@ form {
   margin: 0 auto;
   font-size: 16px;
 }
+#todayLoad {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
 .card-f {
   margin: 50px 0;
   text-align: center;
@@ -59,6 +64,11 @@ form {
 .temperature {
   font-size: 25px;
   font-weight: 500;
+}
+.fahrenheit {
+  font-size: 18px;
+  font-weight: 500;
+  color: grey;
 }
 h6 {
   font-family: "Sniglet", cursive;

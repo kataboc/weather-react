@@ -46,11 +46,11 @@ export default function Today(props) {
       <div className="col-12">
         <div className="card-today">
           <div className="card-body">
-            <h2 class="card-title">{props.name}</h2>
+            <h2 className="card-title">{props.name}</h2>
             <h5 className="card-today-icon" id="todayIcon">
               <FontAwesomeIcon icon={getIcon()} />
             </h5>
-            <p className="card-today-text">
+            <div className="card-today-text">
               <div id="weatherDescription">
                 humidity {props.humid} %, {props.desc}, wind {props.wind}
                 m/s
@@ -59,7 +59,7 @@ export default function Today(props) {
                 <DateFormat date={props.date} />
               </div>
               <Button temp={props.temp} />
-            </p>
+            </div>
           </div>
         </div>
       </div>

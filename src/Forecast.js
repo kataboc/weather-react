@@ -5,6 +5,7 @@ import Tomorrow2 from "./Tomorrow2";
 import Tomorrow3 from "./Tomorrow3";
 import Tomorrow4 from "./Tomorrow4";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Forecast(props) {
   const apiKey = `e04e51dd1592166f33d5c79d198d4731`;
@@ -43,37 +44,39 @@ export default function Forecast(props) {
   }
   if (ready && props.city === forecastData.city) {
     return (
-      <div className="row" id="forecast-row">
-        <Tomorrow
-          date={forecastData.date}
-          temp={forecastData.temperature}
-          desc={forecastData.description}
-          cond={forecastData.condition}
-        />
-        <Tomorrow1
-          date={forecastData.date1}
-          temp={forecastData.temperature1}
-          desc={forecastData.description1}
-          cond={forecastData.condition1}
-        />
-        <Tomorrow2
-          date={forecastData.date2}
-          temp={forecastData.temperature2}
-          desc={forecastData.description2}
-          cond={forecastData.condition2}
-        />
-        <Tomorrow3
-          date={forecastData.date3}
-          temp={forecastData.temperature3}
-          desc={forecastData.description3}
-          cond={forecastData.condition3}
-        />
-        <Tomorrow4
-          date={forecastData.date4}
-          temp={forecastData.temperature4}
-          desc={forecastData.description4}
-          cond={forecastData.condition4}
-        />
+      <div>
+        <div className="row" id="forecast-row">
+          <Tomorrow
+            date={forecastData.date}
+            temp={forecastData.temperature}
+            desc={forecastData.description}
+            cond={forecastData.condition}
+          />
+          <Tomorrow1
+            date={forecastData.date1}
+            temp={forecastData.temperature1}
+            desc={forecastData.description1}
+            cond={forecastData.condition1}
+          />
+          <Tomorrow2
+            date={forecastData.date2}
+            temp={forecastData.temperature2}
+            desc={forecastData.description2}
+            cond={forecastData.condition2}
+          />
+          <Tomorrow3
+            date={forecastData.date3}
+            temp={forecastData.temperature3}
+            desc={forecastData.description3}
+            cond={forecastData.condition3}
+          />
+          <Tomorrow4
+            date={forecastData.date4}
+            temp={forecastData.temperature4}
+            desc={forecastData.description4}
+            cond={forecastData.condition4}
+          />
+        </div>
       </div>
     );
   } else {
@@ -81,7 +84,41 @@ export default function Forecast(props) {
 
     return (
       <div className="row" id="forecast-row">
-        Loading the forecast...
+        <div className="col">
+          <div className="card-f">
+            <div className="sweet-loading">
+              <ClipLoader size={70} color={"grey"} loading={ready === false} />
+            </div>
+          </div>
+        </div>
+        <div className="col">
+          <div className="card-f">
+            <div className="sweet-loading">
+              <ClipLoader size={70} color={"grey"} loading={ready === false} />
+            </div>
+          </div>
+        </div>
+        <div className="col">
+          <div className="card-f">
+            <div className="sweet-loading">
+              <ClipLoader size={70} color={"grey"} loading={ready === false} />
+            </div>
+          </div>
+        </div>
+        <div className="col">
+          <div className="card-f">
+            <div className="sweet-loading">
+              <ClipLoader size={70} color={"grey"} loading={ready === false} />
+            </div>
+          </div>
+        </div>
+        <div className="col">
+          <div className="card-f">
+            <div className="sweet-loading">
+              <ClipLoader size={70} color={"grey"} loading={ready === false} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
